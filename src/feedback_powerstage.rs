@@ -109,6 +109,7 @@ where
             // Update the path frequency
             psmeta.n_fuzz_mut()[hash] = psmeta.n_fuzz()[hash].saturating_add(1);
 
+            // TODO: now we can add the previously saved mutation to the ones in corpus
             if let Some(idx) = corpus_idx {
                 state
                     .corpus()
