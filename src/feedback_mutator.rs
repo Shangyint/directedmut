@@ -1,9 +1,6 @@
 use libafl::{inputs::Input, mutators::Mutator, prelude::MutatorsTuple, state::HasRand};
 
-use core::{
-    marker::PhantomData,
-};
-
+use core::marker::PhantomData;
 
 pub struct StdFeedbackMutators<I, MT, S>
 where
@@ -27,13 +24,14 @@ where
     MT: MutatorsTuple<I, S>,
     S: HasRand,
 {
-
 }
-
 
 #[cfg(test)]
 mod tests {
-    use libafl::{prelude::{InMemoryCorpus, BytesInput, Corpus, Testcase}, state::StdState};
+    use libafl::{
+        prelude::{BytesInput, Corpus, InMemoryCorpus, Testcase},
+        state::StdState,
+    };
 
     use crate::utils::XkcdRand;
 
@@ -47,7 +45,6 @@ mod tests {
         let testcase = corpus.get(0).expect("Corpus contains no entries");
         let mut input = testcase.borrow_mut().load_input().unwrap().clone();
 
-        let mut state =
-            StdState::new(rand, corpus, InMemoryCorpus::new(), &mut (), &mut ());
+        let mut state = StdState::new(rand, corpus, InMemoryCorpus::new(), &mut (), &mut ());
     }
 }

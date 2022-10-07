@@ -1,11 +1,10 @@
 use std::marker::PhantomData;
 
-use crate::saved_mutations::{MutationVector, HasSavedMutation, SavedMutation};
+use crate::saved_mutations::{HasSavedMutation, MutationVector, SavedMutation};
 use libafl::{
     prelude::{Corpus, Feedback, Input, MutatorsTuple, Rand},
     state::{HasRand, StdState},
 };
-
 
 pub struct SavedMutationStdState<C, I, R, SC, MT, S, SM>
 where
@@ -22,15 +21,16 @@ where
     phantom: PhantomData<(MT, S)>,
 }
 
-impl<C, I, R, SC, MT, S, SM> HasSavedMutation<I, MT, S> for SavedMutationStdState<C, I, R, SC, MT, S, SM>
+impl<C, I, R, SC, MT, S, SM> HasSavedMutation<I, MT, S>
+    for SavedMutationStdState<C, I, R, SC, MT, S, SM>
 where
-C: Corpus<I>,
-I: Input,
-R: Rand,
-SC: Corpus<I>,
-S: HasRand,
-MT: MutatorsTuple<I, S>,
-SM: SavedMutation<I, MT, S>, 
+    C: Corpus<I>,
+    I: Input,
+    R: Rand,
+    SC: Corpus<I>,
+    S: HasRand,
+    MT: MutatorsTuple<I, S>,
+    SM: SavedMutation<I, MT, S>,
 {
     type SavedMutation = SM;
 
@@ -47,12 +47,9 @@ where
     SC: Corpus<I>,
     S: HasRand,
     MT: MutatorsTuple<I, S>,
-    SM: SavedMutation<I, MT, S>, 
+    SM: SavedMutation<I, MT, S>,
 {
-    pub fn new(
-        std_state: StdState<C, I, R, SC>,
-        saved_mutations: SM,
-    ) -> Self {
+    pub fn new(std_state: StdState<C, I, R, SC>, saved_mutations: SM) -> Self {
         Self {
             state: std_state,
             saved_mutations,

@@ -1,43 +1,42 @@
-use std::{marker::PhantomData, cell::RefCell};
+use std::{cell::RefCell, marker::PhantomData};
 
-use libafl::{prelude::{MutatorsTuple, Input}, state::HasRand};
-use serde::{Serialize, de::DeserializeOwned};
+use libafl::{
+    prelude::{Input, MutatorsTuple},
+    state::HasRand,
+};
+use serde::{de::DeserializeOwned, Serialize};
 
 pub struct MutationVector<I, MT, S>
 where
     I: Input,
     MT: MutatorsTuple<I, S>,
-    S: HasRand
+    S: HasRand,
 {
     mutations: Vec<RefCell<MT>>,
     phantom: PhantomData<(I, S)>,
 }
 
-
 pub trait SavedMutation<I, MT, S>
 where
     I: Input,
     MT: MutatorsTuple<I, S>,
-    S: HasRand
+    S: HasRand,
 {
-
 }
 
 impl<I, MT, S> SavedMutation<I, MT, S> for MutationVector<I, MT, S>
 where
     I: Input,
     MT: MutatorsTuple<I, S>,
-    S: HasRand
+    S: HasRand,
 {
-
 }
-
 
 pub trait HasSavedMutation<I, MT, S>
 where
     I: Input,
     MT: MutatorsTuple<I, S>,
-    S: HasRand
+    S: HasRand,
 {
     type SavedMutation: SavedMutation<I, MT, S>;
 
