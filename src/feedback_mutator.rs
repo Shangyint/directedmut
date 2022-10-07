@@ -85,6 +85,7 @@ where
         state.rand_mut().below(self.mutations().len() as u64) as usize
     }
 
+    // TODO: Change
     fn scheduled_mutate(
         &mut self,
         state: &mut S,
@@ -110,6 +111,7 @@ where
         self.scheduled_mutate(state, input, stage_idx)
     }
 
+    // TODO: change
     fn post_exec(
         &mut self,
         state: &mut S,
