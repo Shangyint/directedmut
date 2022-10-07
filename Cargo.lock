@@ -265,6 +265,7 @@ dependencies = [
  "libafl_cc",
  "libafl_targets",
  "mimalloc",
+ "serde",
  "which",
 ]
 

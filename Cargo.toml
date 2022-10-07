@@ -28,3 +28,5 @@ libafl_targets = { path = "./LibAFL/libafl_targets/", features = ["sancov_pcguar
 # TODO Include it only when building cc
 libafl_cc = { path = "./LibAFL/libafl_cc/" }
 mimalloc = { version = "*", default-features = false }
+serde = { version = "1.0", default-features = false, features = ["alloc", "derive"] } # serialization lib
+
