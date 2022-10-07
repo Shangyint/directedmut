@@ -2,8 +2,8 @@ use std::marker::PhantomData;
 
 use crate::saved_mutations::{HasSavedMutation, MutationVector, SavedMutation};
 use libafl::{
-    prelude::{Corpus, Feedback, Input, MutatorsTuple, Rand},
-    state::{HasRand, StdState},
+    prelude::{ClientPerfMonitor, Corpus, Feedback, Input, MutatorsTuple, Rand},
+    state::{HasClientPerfMonitor, HasRand, StdState},
 };
 
 pub struct SavedMutationStdState<C, I, R, SC, MT, S, SM>
@@ -36,6 +36,29 @@ where
 
     fn saved_mut(&self) -> &Self::SavedMutation {
         &self.saved_mutations
+    }
+}
+
+impl<C, I, R, SC, MT, S, SM> HasRand for SavedMutationStdState<C, I, R, SC, MT, S, SM>
+where
+    C: Corpus<I>,
+    I: Input,
+    R: Rand,
+    SC: Corpus<I>,
+    S: HasRand,
+    MT: MutatorsTuple<I, S>,
+    SM: SavedMutation<I, MT, S>,
+{
+    type Rand = R;
+
+    #[inline]
+    fn rand(&self) -> &Self::Rand {
+        &self.state.rand()
+    }
+
+    #[inline]
+    fn rand_mut(&mut self) -> &mut Self::Rand {
+        self.state.rand_mut()
     }
 }
 
