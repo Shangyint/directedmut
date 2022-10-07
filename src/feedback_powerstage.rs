@@ -88,8 +88,6 @@ where
                 .load_input()?
                 .clone();
 
-
-
             self.mutator_mut().mutate(state, &mut input, i as i32)?;
             // TODO: add to state the current mutation
             // corpus idx is the new corpus id
