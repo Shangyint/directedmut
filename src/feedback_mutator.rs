@@ -7,7 +7,6 @@ use libafl::{
 };
 
 use core::marker::PhantomData;
-use std::borrow::BorrowMut;
 
 pub struct StdFeedbackMutators<I, MT, S>
 where
