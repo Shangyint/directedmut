@@ -53,3 +53,7 @@ where
         }
     }
 }
+
+pub struct GeneralMutation {
+    location: usize,
+}
